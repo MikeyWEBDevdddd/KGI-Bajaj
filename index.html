@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KGI Bajaj</title>
+  <meta name="description" content="Official Bajaj bikes showroom website – Dominar, Avenger, Pulsar, Platina & CT series. Enquire now on WhatsApp." />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-hlKxqVQmI7nXg3rX8aXk8yZyq1xP3mT3+1l3x6e0bqW7v6wY9q5b2t8URjn3S7Gkq8oH2a7V1qjKcUoH3J0TgQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root{
+      --blue:#0a58ca;              /* Primary Bajaj-ish blue */
+      --blue-600:#0d47a1;          /* Darker shade */
+      --accent:#34c759;            /* WhatsApp green */
+      --bg:#ffffff;                /* Page background */
+      --ink:#0b1220;               /* Text color */
+      --muted:#69738a;             /* Muted text */
+      --card:#f5f8ff;              /* Light blue card */
+      --ring: rgba(10,88,202,.25); /* focus ring */
+      --radius: 18px;              /* rounded */
+      --shadow: 0 10px 30px rgba(10,88,202,.15);
+    }
+
+    *{ box-sizing:border-box }
+    html{ scroll-behavior:smooth }
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--ink); background:var(--bg); overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none }
+    img{ max-width:100%; height:auto; display:block }
+    .container{ width:min(1180px, 92vw); margin:0 auto }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: saturate(180%) blur(8px);
+      background:rgba(255,255,255,.8);
+      border-bottom:1px solid rgba(10,88,202,.08);
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0 }
+    .brand{ display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.3px }
+    .brand-logo{
+      width:40px; height:40px; border-radius:12px;
+      background:linear-gradient(135deg,var(--blue),#3b82f6);
+      display:grid; place-items:center; color:#fff; box-shadow:var(--shadow);
+    }
+    .nav-links{ display:flex; gap:18px; align-items:center }
+    .nav-links a{ padding:8px 12px; border-radius:10px; font-weight:600; color:var(--blue-600) }
+    .nav-links a:hover{ background:var(--card) }
+
+    /* Social icons */
+    .socials{ display:flex; gap:12px }
+    .socials a{
+      width:36px; height:36px; display:grid; place-items:center;
+      border-radius:12px; background:#fff; border:1px solid rgba(10,88,202,.15);
+      color:var(--blue-600); transition:transform .2s ease, background .2s ease; box-shadow:0 6px 12px rgba(0,0,0,.04);
+    }
+    .socials a:hover{ transform:translateY(-2px); background:var(--card) }
+
+    /* Hero */
+    .hero{
+      position:relative; min-height:72vh; display:grid; align-items:center; isolation:isolate;
+      background:linear-gradient(180deg,#eaf2ff 0%, #ffffff 100%);
+    }
+    .hero .bg{
+      position:absolute; inset:0; z-index:-1; overflow:hidden;
+    }
+    .hero .bg::after{
+      /* subtle diagonal pattern */
+      content:""; position:absolute; inset:-20%; transform:skewY(-8deg);
+      background:radial-gradient(closest-side, rgba(59,130,246,.15), transparent 70%) 0 0/40vmax 40vmax no-repeat;
+      opacity:.6;
+    }
+    .hero-inner{ padding:72px 0; }
+    .hero h1{ font-size: clamp(28px, 4.5vw, 56px); margin:0 0 10px; line-height:1.05 }
+    .hero p{ font-size: clamp(14px, 2.2vw, 18px); color:var(--muted); margin:0 0 26px }
+    .cta-row{ display:flex; gap:12px; flex-wrap:wrap }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px; border:1px solid transparent; font-weight:700; cursor:pointer;
+      transition:transform .15s ease, box-shadow .2s ease, background .2s ease; user-select:none
+    }
+    .btn.primary{ background:var(--blue); color:#fff; box-shadow:var(--shadow) }
+    .btn.primary:hover{ transform:translateY(-2px) }
+    .btn.ghost{ background:#fff; color:var(--blue-600); border-color:rgba(10,88,202,.2) }
+
+    /* Section generic */
+    section{ padding:56px 0 }
+    .section-head{ display:flex; align-items:end; justify-content:space-between; margin-bottom:20px }
+    .section-head h2{ font-size: clamp(22px, 3.6vw, 38px); margin:0 }
+    .section-head p{ color:var(--muted); margin:6px 0 0 }
+
+    /* Bike band */
+    .band{ display:grid; grid-template-columns:1.2fr 1fr; gap:24px; align-items:center; background:var(--card); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow) }
+    .band.reverse{ grid-template-columns:1fr 1.2fr }
+    .band .copy{ padding:14px 18px }
+    .kicker{ text-transform:uppercase; letter-spacing:.2em; font-weight:800; color:var(--blue-600); font-size:12px }
+    .title{ font-size: clamp(20px, 3.2vw, 28px); margin:8px 0 }
+    .desc{ color:var(--muted) }
+    .points{ display:grid; gap:8px; margin:14px 0 18px; padding:0; list-style:none }
+    .points li{ display:flex; gap:8px; align-items:start }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:999px; background:#fff; border:1px solid rgba(10,88,202,.15); font-weight:700; color:var(--blue-600)
+    }
+
+    .bike-img{
+      position:relative; aspect-ratio: 16/9; border-radius:calc(var(--radius) - 6px); overflow:hidden; background:linear-gradient(180deg,#ffffff, #e6efff);
+    }
+    .bike-img img{ width:100%; height:100%; object-fit:cover; transform:scale(1.02); transition:transform .4s ease }
+    .bike-img:hover img{ transform:scale(1.06) }
+
+    /* Grid for multi models */
+    .grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:18px }
+    .card{ background:var(--card); border:1px solid rgba(10,88,202,.12); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow) }
+    .card-body{ padding:16px }
+    .card h3{ margin:0 0 6px }
+    .badge{ display:inline-block; font-size:12px; background:#fff; border:1px solid rgba(10,88,202,.15); color:var(--blue-600); padding:6px 10px; border-radius:999px; font-weight:700 }
+
+    /* CTA strip */
+    .cta-strip{ background:linear-gradient(90deg, var(--blue), #3b82f6); color:#fff; border-radius:var(--radius); padding:20px; display:flex; align-items:center; justify-content:space-between; gap:16px; box-shadow:var(--shadow) }
+
+    /* Footer */
+    footer{ padding:36px 0; border-top:1px solid rgba(10,88,202,.08); color:var(--muted) }
+
+    /* Floating buttons */
+    .fab-wrap{ position:fixed; right:18px; bottom:18px; display:flex; flex-direction:column; gap:12px; z-index:60 }
+    .fab{ width:56px; height:56px; border-radius:16px; display:grid; place-items:center; color:#fff; border:none; cursor:pointer; box-shadow:0 10px 24px rgba(0,0,0,.18); transition:transform .15s ease }
+    .fab:hover{ transform:translateY(-2px) }
+    .fab.enquiry{ background:var(--blue) }
+    .fab.whatsapp{ background:var(--accent) }
+
+    /* Modal */
+    .modal{ position:fixed; inset:0; background:rgba(2,6,23,.55); display:none; align-items:center; justify-content:center; z-index:80; padding:20px }
+    .modal.open{ display:flex }
+    .dialog{ width:min(560px,92vw); background:#fff; border-radius:22px; box-shadow:0 30px 60px rgba(2,6,23,.35); overflow:hidden }
+    .dialog header{ position:relative; background:linear-gradient(135deg,var(--blue),#3b82f6); color:#fff; border:0 }
+    .dialog .nav{ padding:16px 20px }
+    .dialog h3{ margin:0; font-size:22px }
+    .dialog .close{ position:absolute; right:16px; top:16px; background:rgba(255,255,255,.2); border:none; color:#fff; width:36px; height:36px; border-radius:10px; cursor:pointer }
+    .dialog .body{ padding:18px; }
+    .form{ display:grid; gap:12px }
+    .field{ display:grid; gap:6px }
+    .field label{ font-weight:700; color:var(--blue-600) }
+    .field input, .field select, .field textarea{
+      padding:12px 12px; border-radius:12px; border:1px solid rgba(10,88,202,.25); font:inherit; outline:0; background:#fff
+    }
+    .field input:focus, .field select:focus, .field textarea:focus{ box-shadow:0 0 0 4px var(--ring); border-color:var(--blue) }
+    .dialog .actions{ display:flex; justify-content:flex-end; gap:10px; padding:0 18px 18px }
+
+    /* Animations on scroll */
+    .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease }
+    .reveal.on{ opacity:1; transform:none }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .band{ grid-template-columns:1fr; }
+      .grid{ grid-template-columns:1fr 1fr }
+      .nav-links{ display:none }
+    }
+    @media (max-width: 560px){
+      .grid{ grid-template-columns:1fr }
+      .cta-strip{ flex-direction:column; text-align:center }
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-logo"><i class="fa-solid fa-bolt"></i></div>
+        <div>
+          <div style="line-height:1; font-size:18px">KGI Bajaj</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#dominar">Dominar</a>
+        <a href="#avenger">Avenger</a>
+        <a href="#pulsar-n">Pulsar N</a>
+        <a href="#pulsar-ns">Pulsar NS</a>
+        <a href="#pulsar-classic">Pulsar Classic</a>
+        <a href="#commuter">Platina & CT</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="socials">
+        <!-- Replace hrefs with your actual profiles -->
+        <a href="https://www.facebook.com/profile.php?id=61577974500905" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/bajajauto_kgimotors/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.youtube.com/@bajajautokgimotorsimphal" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </header>
+
+
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <h1 class="reveal">Ride the Blue. Rule the Road.</h1>
+      <p class="reveal" style="transition-delay:.08s">Explore Dominar, Avenger, Pulsar, Platina & CT — performance tuned and city ready. Finance & test rides available.</p>
+      <div class="cta-row reveal" style="transition-delay:.12s">
+        <a class="btn primary" href="#dominar"><i class="fa-solid fa-motorcycle"></i> Explore Bikes</a>
+        <button class="btn ghost" id="openEnquiry"><i class="fa-regular fa-message"></i> Quick Enquiry</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dominar Section -->
+  <section id="dominar" class="container">
+    <div class="section-head">
+      <div>
+        <h2>Dominar Series</h2>
+        <p>Power-touring DNA with confidence-inspiring tech.</p>
+      </div>
+      <a class="pill" href="#contact"><i class="fa-regular fa-calendar"></i> Book Test Ride</a>
+    </div>
+
+    <div class="band reveal">
+      <div class="bike-img">
+        <img src="assets/dominar-400.jpg" alt="Bajaj Dominar 400" loading="lazy">
+      </div>
+      <div class="copy">
+        <div class="kicker">Dominar</div>
+        <h3 class="title">Dominar 400</h3>
+        <p class="desc">Hyper-ride comfort, upside-down forks, and muscular stance. Built to devour miles.</p>
+        <ul class="points">
+          <li><i class="fa-regular fa-circle-check" style="color:var(--blue)"></i> 373cc liquid-cooled engine</li>
+          <li><i class="fa-regular fa-circle-check" style="color:var(--blue)"></i> USD forks • Dual-channel ABS</li>
+          <li><i class="fa-regular fa-circle-check" style="color:var(--blue)"></i> LED lighting • Touring kit ready</li>
+        </ul>
+        <button class="btn primary openEnquiry">Enquire Dominar 400</button>
+      </div>
+    </div>
+
+    <div class="band reverse reveal">
+      <div class="copy">
+        <div class="kicker">Dominar</div>
+        <h3 class="title">Dominar 250</h3>
+        <p class="desc">The accessible power-tourer — balanced performance for everyday rides.</p>
+        <ul class="points">
+          <li><i class="fa-regular fa-circle-check" style="color:var(--blue)"></i> 248cc liquid-cooled engine</li>
+          <li><i class="fa-regular fa-circle-check" style="color:var(--blue)"></i> Perimeter frame • ABS</li>
+          <li><i class="fa-regular fa-circle-check" style="color:var(--blue)"></i> LED headlamp • Premium fit & finish</li>
+        </ul>
+        <button class="btn primary openEnquiry">Enquire Dominar 250</button>
+      </div>
+      <div class="bike-img">
+        <img src="assets/dominar-250.jpg" alt="Bajaj Dominar 250" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Avenger Section -->
+  <section id="avenger" class="container">
+    <div class="section-head">
+      <div>
+        <h2>Avenger Series</h2>
+        <p>Cruise in comfort — classic low-slung ergonomics.</p>
+      </div>
+    </div>
+
+    <div class="band reveal">
+      <div class="bike-img">
+        <img src="assets/avenger-220.jpg" alt="Bajaj Avenger 220 Cruise" loading="lazy">
+      </div>
+      <div class="copy">
+        <div class="kicker">Avenger</div>
+        <h3 class="title">Avenger 220 Cruise</h3>
+        <p class="desc">Chrome-detailed cruiser for unhurried miles.</p>
+        <button class="btn primary openEnquiry">Enquire Avenger 220</button>
+      </div>
+    </div>
+
+    <div class="band reverse reveal">
+      <div class="copy">
+        <div class="kicker">Avenger</div>
+        <h3 class="title">Avenger 160 Street</h3>
+        <p class="desc">Urban cruiser with nimble handling and comfort-first posture.</p>
+        <button class="btn primary openEnquiry">Enquire Avenger 160</button>
+      </div>
+      <div class="bike-img">
+        <img src="assets/avenger-160.jpg" alt="Bajaj Avenger 160 Street" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Pulsar N Series -->
+  <section id="pulsar-n" class="container">
+    <div class="section-head">
+      <div>
+        <h2>Pulsar N Series</h2>
+        <p>Next-gen performance with sharp design.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card reveal">
+        <div class="bike-img"><img src="assets/pulsar-n250.jpg" alt="Pulsar N250" loading="lazy"></div>
+        <div class="card-body">
+          <span class="badge">N250</span>
+          <h3>Pulsar N250</h3>
+          <p class="desc">Quarter-litre street dynamics with assured braking.</p>
+          <button class="btn primary openEnquiry">Enquire N250</button>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="bike-img"><img src="assets/pulsar-n160.jpg" alt="Pulsar N160" loading="lazy"></div>
+        <div class="card-body">
+          <span class="badge">N160</span>
+          <h3>Pulsar N160</h3>
+          <p class="desc">Dual-channel ABS option & torquey refinement.</p>
+          <button class="btn primary openEnquiry">Enquire N160</button>
+        </div>
+      </article>
+      <!-- spacer card for symmetry on desktop; auto-wrap on mobile -->
+      <article class="card reveal" style="display:grid; place-items:center; padding:20px">
+        <div class="card-body">
+          <h3 style="margin:0 0 8px">Which one suits you?</h3>
+          <p class="desc" style="margin:0 0 12px">Tap below to ask us the best pick based on your usage.</p>
+          <button class="btn ghost openEnquiry"><i class="fa-regular fa-message"></i> Ask an Expert</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Pulsar NS Series -->
+  <section id="pulsar-ns" class="container">
+    <div class="section-head">
+      <div>
+        <h2>Pulsar NS Series</h2>
+        <p>Legendary streetfighter lineup — agile & aggressive.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card reveal">
+        <div class="bike-img"><img src="assets/pulsar-ns125.jpg" alt="Pulsar NS125" loading="lazy"></div>
+        <div class="card-body">
+          <span class="badge">NS125</span>
+          <h3>Pulsar NS125</h3>
+          <p class="desc">Lightweight entry with sporty character.</p>
+          <button class="btn primary openEnquiry">Enquire NS125</button>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="bike-img"><img src="assets/pulsar-ns160.jpg" alt="Pulsar NS160" loading="lazy"></div>
+        <div class="card-body">
+          <span class="badge">NS160</span>
+          <h3>Pulsar NS160</h3>
+          <p class="desc">Perimeter frame confidence and responsive power.</p>
+          <button class="btn primary openEnquiry">Enquire NS160</button>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="bike-img"><img src="assets/pulsar-ns400.jpg" alt="Pulsar NS400" loading="lazy"></div>
+        <div class="card-body">
+          <span class="badge">NS400</span>
+          <h3>Pulsar NS400</h3>
+          <p class="desc">The big Pulsar with serious street intent.</p>
+          <button class="btn primary openEnquiry">Enquire NS400</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Pulsar Classic Series -->
+  <section id="pulsar-classic" class="container">
+    <div class="section-head">
+      <div>
+        <h2>Pulsar Classic Series</h2>
+        <p>Timeless Pulsar DNA. Proven, efficient, reliable.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card reveal">
+        <div class="bike-img"><img src="assets/pulsar-125.jpg" alt="Pulsar 125" loading="lazy"></div>
+        <div class="card-body">
+          <span class="badge">125</span>
+          <h3>Pulsar 125</h3>
+          <p class="desc">Daily-ready performance with Pulsar attitude.</p>
+          <button class="btn primary openEnquiry">Enquire Pulsar 125</button>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="bike-img"><img src="assets/pulsar-150.jpg" alt="Pulsar 150" loading="lazy"></div>
+        <div class="card-body">
+          <span class="badge">150</span>
+          <h3>Pulsar 150</h3>
+          <p class="desc">Iconic, balanced power and efficiency.</p>
+          <button class="btn primary openEnquiry">Enquire Pulsar 150</button>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="bike-img"><img src="assets/pulsar-neon.jpg" alt="Pulsar Neon" loading="lazy"></div>
+        <div class="card-body">
+          <span class="badge">Neon</span>
+          <h3>Pulsar Neon</h3>
+          <p class="desc">Signature graphics with head-turning highlights.</p>
+          <button class="btn primary openEnquiry">Enquire Pulsar Neon</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Commuter: Platina & CT -->
+  <section id="commuter" class="container">
+    <div class="section-head">
+      <div>
+        <h2>Platina & CT Series</h2>
+        <p>Maximum mileage, minimum fuss. Built tough for every day.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card reveal">
+        <div class="bike-img"><img src="assets/platina-110.jpg" alt="Platina 110" loading="lazy"></div>
+        <div class="card-body">
+          <span class="badge">Platina 110</span>
+          <h3>Platina 110</h3>
+          <p class="desc">Comfortec seat and dependable economy.</p>
+          <button class="btn primary openEnquiry">Enquire Platina 110</button>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="bike-img"><img src="assets/ct110x.jpg" alt="CT 110X" loading="lazy"></div>
+        <div class="card-body">
+          <span class="badge">CT 110X</span>
+          <h3>CT 110X</h3>
+          <p class="desc">Rugged build with tank pads & crash guards.</p>
+          <button class="btn primary openEnquiry">Enquire CT 110X</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTA Strip -->
+  <section class="container">
+    <div class="cta-strip reveal">
+      <div>
+        <strong>Confused between models?</strong>
+        <div style="opacity:.9">Tell us your daily ride distance & budget — we'll suggest the best option.</div>
+      </div>
+      <button class="btn" id="openEnquiry2" style="background:#fff; color:var(--blue-600); font-weight:800"><i class="fa-regular fa-compass"></i> Get a Recommendation</button>
+    </div>
+  </section>
+
+  <!-- Contact / Footer -->
+  <section id="contact" class="container">
+    <div class="section-head">
+      <div>
+        <h2>Contact</h2>
+        <p>Visit our showroom or ping us on WhatsApp for quick assistance.</p>
+      </div>
+    </div>
+    <div class="band reveal">
+      <div class="copy">
+        <div class="kicker">KGI Bajaj</div>
+        <h3 class="title">We’re here to help</h3>
+        <p class="desc">Financing, Test rides, Service bookings — all in one place.</p>
+        <ul class="points">
+          <li><i class="fa-regular fa-circle-check" style="color:var(--blue)"></i> Address: <strong>Airport Road, Ghari opp. Mahindra Showroom</strong></li>
+          <li><i class="fa-regular fa-circle-check" style="color:var(--blue)"></i> Phone: <a href="tel:+918119050090">+91 8119050090</a></li>
+          <li><i class="fa-regular fa-circle-check" style="color:var(--blue)"></i> Hours: Mon–Sat 8:30 AM – 5:00 PM</li>
+        </ul>
+        <button class="btn primary openEnquiry">Enquire Now</button>
+      </div>
+      <div class="bike-img" style="aspect-ratio:4/3">
+        <!-- Replace with an embedded map screenshot or an actual map embed if you like -->
+        <img src="assets/showroom.jpg" alt="KGI Motors Showroom" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap">
+      <div>© <span id="y"></span> KGI Bajaj. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Floating Action Buttons -->
+  <div class="fab-wrap">
+    <button class="fab enquiry" id="fabEnquiry" aria-label="Open Enquiry"><i class="fa-regular fa-envelope"></i></button>
+    <a class="fab whatsapp" id="fabWhatsapp" aria-label="WhatsApp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+  </div>
+
+  <!-- Enquiry Modal -->
+  <div class="modal" id="enquiryModal" role="dialog" aria-modal="true" aria-labelledby="enqTitle">
+    <div class="dialog">
+      <header>
+        <div class="nav">
+          <h3 id="enqTitle">Quick Enquiry</h3>
+          <button class="close" id="closeModal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </header>
+      <div class="body">
+        <form class="form" id="enquiryForm">
+          <div class="field">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <input id="phone" name="phone" type="tel" placeholder="10-digit mobile" pattern="[0-9]{10}" required>
+          </div>
+          <div class="field">
+            <label for="model">Interested Model</label>
+            <select id="model" name="model" required>
+              <option value="" disabled selected>Select a model</option>
+              <optgroup label="Dominar">
+                <option>Dominar 400</option>
+                <option>Dominar 250</option>
+              </optgroup>
+              <optgroup label="Avenger">
+                <option>Avenger 220</option>
+                <option>Avenger 160</option>
+              </optgroup>
+              <optgroup label="Pulsar N">
+                <option>Pulsar N250</option>
+                <option>Pulsar N160</option>
+              </optgroup>
+              <optgroup label="Pulsar NS">
+                <option>Pulsar NS125</option>
+                <option>Pulsar NS160</option>
+                <option>Pulsar NS400</option>
+              </optgroup>
+              <optgroup label="Pulsar Classic">
+                <option>Pulsar 125</option>
+                <option>Pulsar 150</option>
+                <option>Pulsar Neon</option>
+              </optgroup>
+              <optgroup label="Commuter">
+                <option>Platina 110</option>
+                <option>CT 110X</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="field">
+            <label for="msg">Message (Optional)</label>
+            <textarea id="msg" name="msg" rows="3" placeholder="I want on-road price, finance options, test ride..."></textarea>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn ghost" id="cancelEnquiry">Cancel</button>
+            <button type="submit" class="btn primary">Send Enquiry</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Year in footer
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Smooth reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target) } })
+    }, { threshold:.12 });
+    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+    // Modal logic
+    const modal = document.getElementById('enquiryModal');
+    const openers = document.querySelectorAll('#openEnquiry, #openEnquiry2, .openEnquiry, #fabEnquiry');
+    const closer = document.getElementById('closeModal');
+    const cancel = document.getElementById('cancelEnquiry');
+
+    function openModal(){ modal.classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
+
+    openers.forEach(b=> b.addEventListener('click', openModal));
+    closer.addEventListener('click', closeModal);
+    cancel.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+    // Enquiry form -> WhatsApp prefill + (optional) email endpoint
+    const waNumber = '918119050090'; // TODO: REPLACE with your WhatsApp number without +
+    const waLinkBase = `https://wa.me/${waNumber}`;
+    const waBtn = document.getElementById('fabWhatsapp');
+    waBtn.href = `${waLinkBase}?text=${encodeURIComponent('Hi KGI Bajaj, I have a query about Bajaj bikes.')}`;
+
+    document.getElementById('enquiryForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(this).entries());
+      const text = `New enquiry%0AName: ${encodeURIComponent(data.name)}%0APhone: ${encodeURIComponent(data.phone)}%0AModel: ${encodeURIComponent(data.model || '')}%0AMessage: ${encodeURIComponent(data.msg || '')}`;
+      // Redirect to WhatsApp with filled message
+      window.open(`${waLinkBase}?text=${text}`, '_blank');
+      // Optional: also send to a Google Form / server endpoint here.
+      this.reset();
+      closeModal();
+    });
+
+    // Optional: highlight active nav link on scroll
+    const sections = ['home','dominar','avenger','pulsar-n','pulsar-ns','pulsar-classic','commuter','contact'];
+    const links = [...document.querySelectorAll('.nav-links a')];
+    const map = new Map(sections.map(id=>[id, document.getElementById(id)]));
+
+    function setActive(){
+      let current = 'home';
+      const y = window.scrollY + 120; // offset for sticky header
+      for(const id of sections){
+        const el = map.get(id);
+        if(el && el.offsetTop <= y) current = id;
+      }
+      links.forEach(a=>{
+        a.style.background = a.getAttribute('href') === `#${current}` ? 'var(--card)' : '';
+      });
+    }
+    setActive();
+    window.addEventListener('scroll', setActive);
+
+  </script>
+</body>
+</html>
